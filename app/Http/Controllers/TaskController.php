@@ -23,7 +23,7 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
 
             'task_name' => 'required|max:255',
-            'due_date' => 'required|date',
+            // 'due_date' => 'required|date',
         ]);
 
         if($validator->fails()){
