@@ -47,4 +47,26 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index');
     }
+
+
+    public function trash() {
+
+        $tasks = Task::getTrashTasks();
+
+        return view('tasks.trash', compact('tasks'));
+    }
+
+    public function recover($id) {
+
+        Task::recoverTask($id);
+
+        return redirect()->route('tasks.index');
+    }
+
+    public function deleteTrash() {
+
+        Task::selctTrashAll();
+
+        return redirect()->route('tasks.index');
+    }
 }
