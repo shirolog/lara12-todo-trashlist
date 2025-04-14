@@ -46,7 +46,7 @@ class Task extends Model
     }
 
     //✓の付いたものをすべて削除
-    public static function selctTrashAll() {
+    public static function selectTrashAll() {
 
         return self::where('is_deleted', true)->delete();
     }
