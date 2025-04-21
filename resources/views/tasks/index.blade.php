@@ -15,6 +15,7 @@
     <div class="container mx-auto p-4">
         <nav class="flex justify-between">
             <h1 class="text-2xl font-bold mb-4">Todoリスト</h1>
+            <a href="{{ route('tasks.trash') }}" class="bg-gray-300 p-2 mb-2 rounded">ゴミ箱</a>
         </nav>
 
         <form action="{{ route('tasks.store') }}" method="post">
@@ -27,10 +28,17 @@
         </form>
     </div>
 
-    <ul>
+    <ul class="list-disc pl-5 text-sm">
         @if($tasks->isNotEmpty())
             @foreach($tasks as $task)
-                <li>{{ $task->task_name }}</li>
+                <li class="mb-2">
+                    <div>{{ $task->task_name }}: <span class="mx-1">{{ date('Y-m-d H:i', strtotime($task->due_date)) }}</span></div>    
+                    <form action="{{ route('tasks.deleteTrash', $task->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded">done</button>
+                    </form>
+                </li>
             @endforeach
         @endif
     </ul>

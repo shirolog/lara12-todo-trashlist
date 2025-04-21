@@ -14,6 +14,8 @@
     <div class="container mx-auto p-4">
         <nav class="flex justify-between">
             <h1 class="text-2xl font-bold mb-4">ゴミ箱</h1>
+            <a href="{{ route('tasks.index') }}" class="border border-blue-500 hover:bg-blue-700 hover:text-white p-2 mb-2 rounded">TOP</a>
+
         </nav>
 
         <ul class="list-disc pl-5">

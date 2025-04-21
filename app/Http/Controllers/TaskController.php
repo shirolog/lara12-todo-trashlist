@@ -11,7 +11,7 @@ class TaskController extends Controller
 
     public function index() {
 
-        $tasks = Task::all();
+        $tasks = Task::where('is_deleted', 'false')->get();
 
         return view('tasks.index', compact('tasks'));
     }
@@ -41,12 +41,6 @@ class TaskController extends Controller
     }
 
 
-    public function destroy(Task $task) {
-
-        $task->delete();
-
-        return redirect()->route('tasks.index');
-    }
 
 
     public function trash() {
