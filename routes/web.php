@@ -7,10 +7,15 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+
+Route::redirect('/', '/tasks');
+
 Route::get('/tasks', [TaskController::class, 'index'])
 ->name('tasks.index');
 Route::post('/tasks', [TaskController::class, 'store'])
 ->name('tasks.store');
+Route::put('/tasks/{task}', [TaskController::class, 'maskAsDeleted'])
+->name('tasks.maskAsDeleted');
 
 
 

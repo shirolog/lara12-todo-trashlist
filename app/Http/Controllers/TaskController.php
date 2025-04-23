@@ -56,6 +56,14 @@ class TaskController extends Controller
         return redirect()->route('tasks.index', compact('task'));
     }
 
+
+    public function maskAsDeleted(Task $task) {
+
+        $task->maskAsDeleted();
+
+        return redirect()->route('tasks.trash');
+    }
+
     public function deleteTrash(Task $task) {
 
         $task->selectTrashAll();
