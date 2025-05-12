@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UrlController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -22,3 +23,8 @@ Route::put('/tasks/{task}', [TaskController::class, 'maskAsDeleted'])
 Route::get('/tasks/trash', [TaskController::class, 'trash'])->name('tasks.trash');
 Route::put('/tasks/{task}/recover', [TaskController::class, 'recover'])->name('tasks.recover');
 Route::delete('/tasks/{task}', [TaskController::class, 'deleteTrash'])->name('tasks.deleteTrash');
+
+
+//short url app
+
+Route::get('/urls', [UrlController::class, 'index'])->name('urls.index');
