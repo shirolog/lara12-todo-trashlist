@@ -28,3 +28,5 @@ Route::delete('/tasks/{task}', [TaskController::class, 'deleteTrash'])->name('ta
 //short url app
 
 Route::get('/urls', [UrlController::class, 'index'])->name('urls.index');
+Route::post('/urls', [UrlController::class, 'store'])->name('urls.store');
+Route::post('/{shortUrl}', [UrlController::class, 'redirect'])->name('urls.redirect');

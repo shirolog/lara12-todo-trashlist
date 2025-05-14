@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
+
+    public function index() {
+
+        return view('urls.index');
+    }
+
     public function store(Request $request) {
 
         $vlaidator = Validator::make($request->all(), [
@@ -31,5 +37,16 @@ class UrlController extends Controller
         $url->save();
 
         return redirect()->route('urls.index');
+    }
+
+    public function redirect($short_url) {
+
+        $url = Url::where('short_url', $short_url)->first();
+
+        if($url->expired_at->lt(Carbon::now())){
+            abort(404);
+        }
+
+        return redirect($url->original_url);
     }
 }
