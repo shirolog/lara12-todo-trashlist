@@ -17,26 +17,29 @@ class UrlController extends Controller
 
     public function store(Request $request) {
 
-        $vlaidator = Validator::make($request->all(), [
+        dd($request->all());
+
+        $validator = Validator::make($request->all(), [
             
             'original_url' => 'url|required',
         ]);
 
-        if($vlaidator->fails()) {
+        if($validator->fails()) {
 
-            return redirect()->back()->withInput()->withErrors($vlaidator);
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
         $short_url = Url::generateShortUrl($request->original_url);
 
         $url = new Url();
 
+
         $url ->original_url = $request->original_url;
         $url ->short_url = $short_url;
-        $url ->expired_at = Carbon::now()->addDay(config('app.url_expiration_days'));
+        $url ->expired_at = Carbon::now()->addDays(config('app.url_expiration_days'));
         $url->save();
 
-        return redirect()->route('urls.index');
+        return  response()->json(['short_url' => url($short_url)]);
     }
 
     public function redirect($short_url) {
