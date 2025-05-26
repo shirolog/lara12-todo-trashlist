@@ -16,6 +16,10 @@ class Url extends Model
         'expired_at',
     ];
 
+    protected $casts = [
+        'expired_at' => 'datetime',
+    ];
+
     public static function generateShortUrl ($url) {
 
         return substr(md5($url).time(), 0, 8);

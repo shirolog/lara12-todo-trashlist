@@ -31,7 +31,7 @@ Route::delete('/tasks/{task}', [TaskController::class, 'deleteTrash'])->name('ta
 
 Route::get('/urls', [UrlController::class, 'index'])->name('urls.index');
 Route::post('/urls', [UrlController::class, 'store'])->name('urls.store');
-Route::post('/{shortUrl}', [UrlController::class, 'redirect'])->name('urls.redirect');
+Route::get('/{shortUrl}', [UrlController::class, 'redirect'])->name('urls.redirect');
 
 Route::get('/check-exp', function () {
     return config('app.url_expiration_days');

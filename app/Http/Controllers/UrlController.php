@@ -17,7 +17,6 @@ class UrlController extends Controller
 
     public function store(Request $request) {
 
-        dd($request->all());
 
         $validator = Validator::make($request->all(), [
             
@@ -34,9 +33,11 @@ class UrlController extends Controller
         $url = new Url();
 
 
+
         $url ->original_url = $request->original_url;
         $url ->short_url = $short_url;
-        $url ->expired_at = Carbon::now()->addDays(config('app.url_expiration_days'));
+        $expirationDays = (int) config('app.url_expiration_days'); //intを使うことで文字列を数字に変換している
+        $url->expired_at = Carbon::now()->addDays($expirationDays);
         $url->save();
 
         return  response()->json(['short_url' => url($short_url)]);
@@ -46,9 +47,11 @@ class UrlController extends Controller
 
         $url = Url::where('short_url', $short_url)->first();
 
-        if($url->expired_at->lt(Carbon::now())){
+        if(!$url |  $url->expired_at->isPast()){
             abort(404);
         }
+
+
 
         return redirect($url->original_url);
     }

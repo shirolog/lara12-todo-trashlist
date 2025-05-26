@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>短縮URL-TOP</title>
 
@@ -21,7 +20,7 @@
         <div id="result" class="mt-4"></div>
     </div>
 
-    <!-- <script>
+    <script>
         const urlForm = document.querySelector('#url-form');
 
         
@@ -30,7 +29,6 @@
             event.preventDefault();
             const originalUrl = document.querySelector('#original_url').value;
 
-            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     
             try {
@@ -38,8 +36,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': token,
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     },
                     body: JSON.stringify({ original_url: originalUrl }),
                 });
@@ -54,7 +51,7 @@
                 alert('サーバーでエラーが発生しました。');
             }
         });
-    </script> -->
+    </script>
     
 </body>
 </html>
