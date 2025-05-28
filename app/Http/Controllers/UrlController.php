@@ -48,7 +48,9 @@ class UrlController extends Controller
         $url = Url::where('short_url', $short_url)->first();
 
         if(!$url |  $url->expired_at->isPast()){
-            abort(404);
+            // abort(404);
+
+            return response()->view('urls.errors.404', [], 404 );
         }
 
 
