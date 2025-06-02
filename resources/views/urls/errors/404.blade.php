@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center h-screen">
     
-    <div class="">
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <!-- 顔の輪郭 -->
             <circle cx="100" cy="100" r="80" fill="#FFDAB9" stroke="#333" stroke-width="4"/>

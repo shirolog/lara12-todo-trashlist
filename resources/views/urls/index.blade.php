@@ -17,7 +17,24 @@
             <input type="text" name="original_url" id="original_url" class="border border-gray-300 p-2 my-2 w-full" placeholder="Enter URL" required>
             <button type="su7bmit" class="bg-blue-500 text-white p-2 mt-4 rounded w-full">短縮する</button>
         </form>
-        <div id="result" class="mt-4"></div>
+
+        <div id="result" class="mt-4">
+            <p>ShortURL: ${data.short_url}
+
+                <button type="button" class="absolute mx-1 border border-gray-300 rounded hover:bg-slate-400">
+                    
+                    <!-- コピーアイコンボタン（クリック用） -->
+                    <svg width="24" height="24" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="transition-colors duration-200">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                        <rect x="3" y="3" width="13" height="13" rx="2" ry="2"/>
+                    </svg>
+    
+                </button>
+            </p>
+        </div>
     </div>
 
     <script>
@@ -51,6 +68,19 @@
                 alert('サーバーでエラーが発生しました。');
             }
         });
+
+
+        async function copyUrl() {
+            const shortUrlText = document.querySelector('#result p');
+            
+                try {
+                    await navigator.clipboard.writeText(shortUrlText.textContent);
+                    alert('URLがクリップボードにコピーされました！');
+                } catch (err) {
+                    console.error('コピーに失敗しました:', err);
+                    alert('コピーに失敗しました。');
+                }
+        }
     </script>
     
 </body>
