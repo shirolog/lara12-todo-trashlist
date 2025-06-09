@@ -74,10 +74,12 @@
             const shortUrlText = document.querySelector('#result p');
             
                 try {
+                    
                     await navigator.clipboard.writeText(shortUrlText.textContent);
+
                     alert('URLがクリップボードにコピーされました！');
-                } catch (err) {
-                    console.error('コピーに失敗しました:', err);
+                } catch (e) {
+                    console.error(e.message);
                     alert('コピーに失敗しました。');
                 }
         }
