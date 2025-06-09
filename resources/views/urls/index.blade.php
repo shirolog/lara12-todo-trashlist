@@ -15,24 +15,11 @@
         <form action="{{ route('urls.store') }}" id="url-form" method="post">
             @csrf
             <input type="text" name="original_url" id="original_url" class="border border-gray-300 p-2 my-2 w-full" placeholder="Enter URL" required>
-            <button type="su7bmit" class="bg-blue-500 text-white p-2 mt-4 rounded w-full">短縮する</button>
+            <button type="submit" class="bg-blue-500 text-white p-2 mt-4 rounded w-full">短縮する</button>
         </form>
 
         <div id="result" class="mt-4">
-            <p>ShortURL: ${data.short_url}
-
-                <button type="button" class="absolute mx-1 border border-gray-300 rounded hover:bg-slate-400">
-                    
-                    <!-- コピーアイコンボタン（クリック用） -->
-                    <svg width="24" height="24" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="transition-colors duration-200">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                        <rect x="3" y="3" width="13" height="13" rx="2" ry="2"/>
-                    </svg>
-    
-                </button>
+            <p>
             </p>
         </div>
     </div>
@@ -61,7 +48,21 @@
     
                 const data = await response.json();
                 document.querySelector('#result').innerHTML =
-                    `<a href="${data.short_url}" target="_blank">${data.short_url}</a>`;
+                `<p>
+                    ShortURL: 
+                        <span>${data.short_url}</span>
+                        <button onclick="copyUrl()" class="ml-2 border border-gray-300 rounded hover:bg-slate-400 px-2">
+                        
+                            <!-- コピーアイコンボタン（クリック用） -->
+                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="transition-colors duration-200">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <rect x="3" y="3" width="13" height="13" rx="2" ry="2"/>
+                            </svg>
+                        </button>
+                    </p>`;
     
             } catch (e) {
                 console.error(e.message);
@@ -71,13 +72,16 @@
 
 
         async function copyUrl() {
-            const shortUrlText = document.querySelector('#result p');
+            const shortUrlText = document.querySelector('#result span');
             
                 try {
                     
                     await navigator.clipboard.writeText(shortUrlText.textContent);
 
-                    alert('URLがクリップボードにコピーされました！');
+                    console.log('URLがクリップボードにコピーされました！');
+
+                    
+
                 } catch (e) {
                     console.error(e.message);
                     alert('コピーに失敗しました。');
