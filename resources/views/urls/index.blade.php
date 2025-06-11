@@ -7,7 +7,7 @@
     <title>短縮URL-TOP</title>
 
     <!-- tailwindcss cdn -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex items-center justify-center h-screen bg-gray-100">
     <div class="bg-white p-6 rounded-lg shadow-lg w-10/12">
@@ -18,7 +18,7 @@
             <button type="submit" class="bg-blue-500 text-white p-2 mt-4 rounded w-full">短縮する</button>
         </form>
 
-        <div id="result" class="mt-4">
+        <div id="result" class="mt-4 flex flex-col">
             <p>
             </p>
         </div>
@@ -80,6 +80,9 @@
 
                     console.log('URLがクリップボードにコピーされました！');
 
+                    const result = document.querySelector('#result p');
+                    result.insertAdjacentHTML
+                    ('afterend', '<div class="inline-block w-auto w-fit bg-gray-800 text-white text-xs px-2 py-1 rounded">コピー!</div>');
                     
 
                 } catch (e) {
