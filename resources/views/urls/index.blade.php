@@ -7,7 +7,7 @@
     <title>短縮URL-TOP</title>
 
     <!-- tailwindcss cdn -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex items-center justify-center h-screen bg-gray-100">
     <div class="bg-white p-6 rounded-lg shadow-lg w-10/12">
@@ -30,6 +30,10 @@
         
         
         urlForm.addEventListener('submit', async (event) => {
+            let isUrl = checkValildUrl();
+            if(!isUrl) {
+                return alert('有効なURLの形式ではありません。');
+            }
             event.preventDefault();
             const originalUrl = document.querySelector('#original_url').value;
 
@@ -70,6 +74,22 @@
             }
         });
 
+        function checkValildUrl() {
+            const url = document.querySelector('#original_url').value;
+
+            const pattern = new RegExp(
+            '^' +
+            '(https?:\\/\\/)' +
+            '((?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}|' +
+            '(?:\\d{1,3}\\.){3}\\d{1,3})' +
+            '(?::\\d{1,5})?' +
+            '(\\/[^?#]*)?' +
+            '(\\?[^#]*)?' +
+            '(#.*)?' +
+            '$'
+            );
+            return pattern.test(url);
+        }
 
         async function copyUrl() {
             const shortUrlText = document.querySelector('#result span');
@@ -78,12 +98,14 @@
                     
                     await navigator.clipboard.writeText(shortUrlText.textContent);
 
-                    console.log('URLがクリップボードにコピーされました！');
+                    // console.log('URLがクリップボードにコピーされました！');
 
                     const result = document.querySelector('#result p');
                     result.insertAdjacentHTML
-                    ('afterend', '<div class="inline-block w-auto w-fit bg-gray-800 text-white text-xs px-2 py-1 rounded">コピー!</div>');
-                    
+                    ('afterend', '<div class="inline-block w-auto w-fit bg-gray-800 text-white text-xs px-2 py-1 rounded" id="copy">コピー!</div>');
+                    setTimeout(() => {
+                        document.querySelector('#copy').style.display= 'none';
+                    }, 2000);
 
                 } catch (e) {
                     console.error(e.message);

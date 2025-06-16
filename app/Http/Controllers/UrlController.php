@@ -28,7 +28,18 @@ class UrlController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $short_url = Url::generateShortUrl($request->original_url);
+        
+        // すでに登録済みの original_url を使い回す
+        $existing = Url::where('original_url', $request->original_url)->first();
+        if ($existing) {
+            return response()->json(['short_url' => url($existing->short_url)]);
+        }
+
+        // 重複しない short_url を生成
+        do {
+            $short_url = Url::generateShortUrl($request->original_url);
+        } while (Url::where('short_url', $short_url)->exists());
+    
 
         $url = new Url();
 
@@ -42,6 +53,8 @@ class UrlController extends Controller
 
         return  response()->json(['short_url' => url($short_url)]);
     }
+
+
 
     public function redirect($short_url) {
 
