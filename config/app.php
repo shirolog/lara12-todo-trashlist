@@ -123,6 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'url_expiration_days' => env('EXPIRATION_DAYS', 7),
-
 ];
